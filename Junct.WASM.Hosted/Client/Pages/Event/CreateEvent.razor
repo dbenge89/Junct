@@ -6,22 +6,39 @@
 @inject NavigationManager NavigationManager
 
 <Container Fluid="true">
-    <Label>Name</Label>
-    <TextEdit Placeholder="Name" @bind="@meet.Title" />
-    <Label>Description</Label>
-    <TextEdit Placeholder="Description" @bind="@meet.Description" />
-    <Label>Add Attendees</Label>
-    <CreateAttendee />
-    <Buttons Role="ButtonsRole.Toolbar">
-        <Buttons>
-            <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Create Event</Button>
-            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        <Label Class="text-white">Title</Label>
+        <TextEdit Placeholder="Title" @bind="@meet.Title" />
+        <Label Class="text-white">Description</Label>
+        <TextEdit Placeholder="Description" @bind="@meet.Description" />
+        <Label Class="text-white">Event Start Date</Label>
+        <DateEdit TValue="DateTime?" Date="@startDate" DateChanged="@OnChangeStart"
+                  Placeholder="@DateTime.Now.AddDays(1).ToLongDateString()" />
+        <Label Class="text-white">Event End Date</Label>
+        <DateEdit TValue="DateTime?" Date="@startDate" DateChanged="@OnChangeEnd"
+                  Placeholder="@DateTime.Now.AddDays(1).ToLongDateString()" />
+        <CreateAttendee />
+        <Buttons Role="ButtonsRole.Toolbar">
+            <Buttons>
+                <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Create Event</Button>
+                <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+            </Buttons>
         </Buttons>
-    </Buttons>
-</Container>
+    </Container>
 
 @code {
     Meet meet = new Meet();
+    DateTime? startDate;
+    DateTime? endDate;
+
+    void OnChangeStart(DateTime? date)
+    {
+        startDate = date;
+    }
+
+    void OnChangeEnd(DateTime? date)
+    {
+        endDate = date;
+    }
 
     protected async Task Create()
     {

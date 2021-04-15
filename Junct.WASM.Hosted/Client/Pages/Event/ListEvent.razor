@@ -4,7 +4,9 @@
 @inject NavigationManager NavigationManager
 
 <DataGrid TItem="Meet"
-          Data="@meets">
+          Data="@meets"
+          Striped="true"
+          Hoverable="true">
     <ChildContent>
         <DataGridCommandColumn TItem="Meet"
                                NewCommandAllowed="true"
@@ -18,6 +20,7 @@
         <DataGridDateColumn TItem="Meet" Field="@nameof(Meet.EndDate)" Caption="End Date" Editable="true" Sortable="true" />
         <DataGridColumn TItem="Meet" Field="@nameof(Meet.Venue.Name)" Caption="Venue" Editable="true" />
         <DataGridNumericColumn TItem="Meet" Field="@nameof(Meet.Attendees.Count)" Caption="Attendees" Editable="false" Sortable="true" />
+        <DataGridColumn TItem="Meet" Field="@nameof(Meet.Attendees.Count)" Caption="Attendees" Editable="false" Sortable="true" />
     </ChildContent>
     <EmptyTemplate>
         <div class="box">

@@ -6,14 +6,18 @@
 @inject NavigationManager NavigationManager
 
 <Container Fluid="true">
-    <Label>Title</Label>
+    <Label Class="text-white">Title</Label>
     <TextEdit Placeholder="Title" @bind="@meet.Title" />
-    <Label>Description</Label>
+    <Label Class="text-white">Description</Label>
     <TextEdit Placeholder="Description" @bind="@meet.Description" />
-    <Label>Start Date</Label>
-    @*<DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@occasion.StartDate" />
-    *@    <Label>End Date</Label>
-    @*  <DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@occasion.EndDate" />*@
+    <Label Class="text-white">Event Start Date</Label>
+    <DateEdit TValue="DateTime?" Date="@startDate" DateChanged="@OnChangeStart"
+              Placeholder="@DateTime.Now.AddDays(1).ToLongDateString()" />
+    <Label Class="text-white">Event End Date</Label>
+    <DateEdit TValue="DateTime?" Date="@startDate" DateChanged="@OnChangeEnd"
+              Placeholder="@DateTime.Now.AddDays(1).ToLongDateString()" />
+
+
     <Buttons Role="ButtonsRole.Toolbar">
         <Buttons>
             <Button Type="ButtonType.Button" Clicked="@UpdateOccasion" Color="Color.Info">Submit</Button>
@@ -27,12 +31,24 @@
     public string id { get; set; }
 
     Meet meet = new Meet();
+    DateTime? startDate;
+    DateTime? endDate;
 
     protected override async Task OnInitializedAsync()
     {
         meet = await Http.GetFromJsonAsync<Meet>("api/MeetsController/" + id);
 
         StateHasChanged();
+    }
+
+    void OnChangeStart(DateTime? date)
+    {
+        startDate = date;
+    }
+
+    void OnChangeEnd(DateTime? date)
+    {
+        endDate = date;
     }
 
     protected async Task UpdateOccasion()

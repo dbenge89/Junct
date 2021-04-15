@@ -1,4 +1,5 @@
 ﻿@using Junct.WASM.Hosted.Shared.Models
+@using Junct.WASM.Hosted.Client.Pages.Attendee
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
 
@@ -8,11 +9,12 @@
     <CardText>@meet.StartDate</CardText>
     <CardText>@meet.EndDate</CardText>
     <CardText>@meet.Venue</CardText>
-    <CardText>@meet.Attendees</CardText>
+    <CardText>@meet.Attendees.Count</CardText>
     <Buttons Role="ButtonsRole.Toolbar">
         <Buttons>
             <Button Type="ButtonType.Link" To="/Event/Update" Color="Color.Info">Edit</Button>
             <Button Type="ButtonType.Link" To="/Event/Delete" Color="Color.Info">Delete</Button>
+            <Button Type="ButtonType.Link" To="/Attendee/List" Color="Color.Info">View Guests</Button>
             <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Back</Button>
         </Buttons>
     </Buttons>
