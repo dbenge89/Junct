@@ -6,11 +6,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
@@ -65,7 +60,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Junct][product-screenshot]](https://example.com)
+[![Junct][product-screenshot]](https://github.com/dbenge89/Junct/blob/master/2021-04-15.png)
 
 While I was brainstorming what I should do as my final project with Eleven Fifty Academy, my wife (Who is an Event Coordinator) threw me a pitch for an Event Scheduling platform. I was hooked. I decided to try my hand at making a small scheduling app utilizing C#, .NET Core, and Blazor. During this project, I learned a great many things. The first one was how to utilize the new Blazor frameworks. Surprisingly easy to master if you know any C#, and the dynamic loading is glorious. I did have quite the time trying to get it to deploy correctly to Azure. Which brings me to the second biggest lesson of this project. Azure IS HUGE, and I only scratched the surface with this project. 
 
