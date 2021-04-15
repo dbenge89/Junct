@@ -1,5 +1,6 @@
 ﻿@page "/Venue/Create"
 @using Junct.WASM.Hosted.Shared.Models
+@using Junct.WASM.Hosted.Client.Pages.Address
 
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
@@ -8,8 +9,8 @@
     <Label>Name</Label>
     <TextEdit Placeholder="Name" @bind="@venue.Name" />
     <Label>Description</Label>
-    <TextEdit Placeholder="Description" @bind="@venue.Capacity" />
-
+    <NumericEdit TValue="int?" Placeholder="Capacity" @bind="@venue.Capacity" />
+    <CreateAddress />
     <Buttons Role="ButtonsRole.Toolbar">
         <Buttons>
             <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>
@@ -24,8 +25,8 @@
     protected async Task Create()
     {
         await Http.PostAsJsonAsync("api/VenuesController", venue);
-        
-        NavigationManager.NavigateTo("/Event");
+
+        NavigationManager.NavigateTo("/Venue");
     }
 
     void Cancel()

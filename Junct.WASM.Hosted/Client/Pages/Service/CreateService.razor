@@ -1,5 +1,6 @@
 ﻿@page "/Service/Create"
 @using Junct.WASM.Hosted.Shared.Models
+@using Junct.WASM.Hosted.Client.Pages.Address
 
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
@@ -9,6 +10,7 @@
     <TextEdit Placeholder="Name" @bind="@service.Name" />
     <Label>Description</Label>
     <TextEdit Placeholder="Description" @bind="@service.Description" />
+    <CreateAddress />
     <Buttons Role="ButtonsRole.Toolbar">
         <Buttons>
             <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>

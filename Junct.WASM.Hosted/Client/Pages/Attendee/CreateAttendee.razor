@@ -14,13 +14,8 @@
     <TextEdit Placeholder="Phone #" @bind="@attendee.PhoneNumber" />
     <Label>Email</Label>
     <TextEdit Placeholder="Email" @bind="@attendee.Email" />
+    <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Primary">Add Attendee</Button>
     <CreateAddress />
-    <Buttons Role="ButtonsRole.Toolbar">
-        <Buttons>
-            <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>
-            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
-        </Buttons>
-    </Buttons>
 </Container>
 
 @code {
@@ -31,10 +26,5 @@
     {
         await Http.PostAsJsonAsync("api/AttendeesController", attendee);
         StateHasChanged();
-    }
-
-    void Cancel()
-    {
-        NavigationManager.NavigateTo("/Home");
     }
 }

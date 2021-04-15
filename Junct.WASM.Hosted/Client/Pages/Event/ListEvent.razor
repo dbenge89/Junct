@@ -16,7 +16,7 @@
         <DataGridColumn TItem="Meet" Field="@nameof(Meet.Description)" Caption="Description" Editable="true" />
         <DataGridDateColumn TItem="Meet" Field="@nameof(Meet.StartDate)" Caption="Start Date" Editable="true" Sortable="true" />
         <DataGridDateColumn TItem="Meet" Field="@nameof(Meet.EndDate)" Caption="End Date" Editable="true" Sortable="true" />
-        <DataGridColumn TItem="Meet" Field="@nameof(Meet.Venue)" Caption="Venue" Editable="true" />
+        <DataGridColumn TItem="Meet" Field="@nameof(Meet.Venue.Name)" Caption="Venue" Editable="true" />
         <DataGridNumericColumn TItem="Meet" Field="@nameof(Meet.Attendees.Count)" Caption="Attendees" Editable="false" Sortable="true" />
     </ChildContent>
     <EmptyTemplate>
