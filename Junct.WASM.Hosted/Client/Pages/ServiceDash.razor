@@ -1,0 +1,25 @@
+﻿@page "/Service"
+@using Junct.WASM.Hosted.Client.Pages.Service
+
+<Layout>
+    <LayoutHeader>
+        <Jumbotron Background="Background.Dark" Class="text-light" Style="justify-content: center; align-content: center; text-align: center;">
+            <JumbotronTitle>Services</JumbotronTitle>
+            <JumbotronSubtitle>Welcome to your Service dashboard!</JumbotronSubtitle>
+            <JumbotronSubtitle>
+                <Buttons>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Service/Create">New Service</Button>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Service/Update">Update Service</Button>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Service/Delete">Delete Service</Button>
+                </Buttons>
+            </JumbotronSubtitle>
+        </Jumbotron>
+    </LayoutHeader>
+    <LayoutContent>
+        <ListService />
+    </LayoutContent>
+</Layout>
+
+@code {
+
+}

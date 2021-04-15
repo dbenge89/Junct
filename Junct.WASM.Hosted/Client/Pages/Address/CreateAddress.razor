@@ -1,0 +1,54 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Fields>
+    <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
+        <FieldLabel>Street Address Line 1</FieldLabel>
+        <TextEdit Placeholder="Street Address" @bind="@address.StreetLine1" />
+    </Field>
+    <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
+        <FieldLabel>Street Address Line 2</FieldLabel>
+        <TextEdit Placeholder="Street Address" @bind="@address.StreetLine2" />
+    </Field>
+</Fields>
+<Fields>
+    <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is6.OnTablet">
+        <FieldLabel>City</FieldLabel>
+        <TextEdit Placeholder="Name" @bind="@address.City" />
+    </Field>
+    <Field ColumnSize="ColumnSize.Is4.OnDesktop.Is6.OnTablet">
+        <FieldLabel>State</FieldLabel>
+        <TextEdit Placeholder="Name" @bind="@address.State" />
+    </Field>
+    <Field ColumnSize="ColumnSize.Is2.OnDesktop.Is6.OnTablet">
+        <FieldLabel>State</FieldLabel>
+        <TextEdit Placeholder="Name" @bind="@address.Country" />
+    </Field>
+</Fields>
+<Fields>
+    <Field ColumnSize="ColumnSize.Is12">
+        <Buttons Role="ButtonsRole.Toolbar">
+            <Buttons>
+                <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>
+                <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+            </Buttons>
+        </Buttons>
+    </Field>
+</Fields>
+
+@code {
+    Address address = new Address();
+
+    protected async Task Create()
+    {
+        await Http.PostAsJsonAsync("api/AddressesController", address);
+        NavigationManager.NavigateTo("/Home");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Home");
+    }
+}

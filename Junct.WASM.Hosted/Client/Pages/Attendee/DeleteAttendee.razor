@@ -1,0 +1,40 @@
+﻿@page "/Attendee/Delete"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Card>
+    <CardTitle>Are you sure you want to delete this guest?</CardTitle>
+    <CardTitle>@attendee.FirstName</CardTitle>
+    <CardText>@attendee.LastName</CardText>
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Delete" Color="Color.Danger">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Attendee attendee = new Attendee();
+
+    protected override async Task OnInitializedAsync()
+    {
+        attendee = await Http.GetFromJsonAsync<Attendee>("api/attendeesController/" + id);
+    }
+
+    protected async Task Delete()
+    {
+        await Http.DeleteAsync("api/attendeesController/" + id);
+        NavigationManager.NavigateTo("/attendee");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/attendee");
+    }
+}

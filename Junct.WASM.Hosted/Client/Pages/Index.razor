@@ -1,0 +1,17 @@
+﻿@page "/"
+
+<Carousel Autoplay="true" @bind-SelectedSlide="@selectedSlide" Class="align-content-center" Style="height: 100%; width: 100%; overflow: hidden;">
+    <CarouselSlide Name="1">
+        <Image Source="\assets\concert.jpg" Text="Concert" Display="Display.Block" Class="img-fluid" />
+    </CarouselSlide>
+    <CarouselSlide Name="2">
+        <Image Source="\assets\wedding.jpg" Text="Wedding" Display="Display.Block" Class="img-fluid" />
+    </CarouselSlide>
+    <CarouselSlide Name="3">
+        <Image Source="\assets\reception.jpg" Text="Reception" Display="Display.Block" Class="img-fluid" />
+    </CarouselSlide>
+</Carousel>
+
+@code{
+    private string selectedSlide = "2";
+}

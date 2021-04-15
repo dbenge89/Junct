@@ -1,0 +1,37 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+
+<Card>
+    <CardTitle>@meet.Title</CardTitle>
+    <CardText>@meet.Description</CardText>
+    <CardText>@meet.StartDate</CardText>
+    <CardText>@meet.EndDate</CardText>
+    <CardText>@meet.Venue</CardText>
+    <CardText>@meet.Attendees</CardText>
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Link" To="/Event/Update" Color="Color.Info">Edit</Button>
+            <Button Type="ButtonType.Link" To="/Event/Delete" Color="Color.Info">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Back</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+    Meet meet = new Meet();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        meet = await Http.GetFromJsonAsync<Meet>("api/MeetsController/" + id);
+
+        StateHasChanged();
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Event");
+    }
+}

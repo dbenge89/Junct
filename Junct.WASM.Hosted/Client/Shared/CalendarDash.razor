@@ -1,0 +1,81 @@
+﻿@page "/Calendar"
+
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Row>
+        <Column>
+
+        </Column>
+    </Row>
+    <Row>
+        <Column><Jumbotron><JumbotronSubtitle>Sun</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>Mon</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>Tue</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>Wed</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>Thu</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>Fri</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>Sat</JumbotronSubtitle></Jumbotron></Column>
+    </Row>
+    <Row>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+    </Row>
+    <Row>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+    </Row>
+    <Row>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+        <Column><Jumbotron><JumbotronSubtitle>@DateTime.Now.DayOfWeek</JumbotronSubtitle></Jumbotron></Column>
+    </Row>
+</Container>
+
+@code {
+    @*CalendarDay[] calendarDays;
+    DateTime today = DateTime.Now;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var calendarDays = await Http.GetFromJsonAsync<CalendarDay[]>("api/CalendarDaysController");
+        if (calendarDays == null)
+        {
+            return;
+        }
+
+        StateHasChanged();
+        OnDateChanged();
+    }
+
+    void OnDateChanged()
+    {
+        foreach(CalendarDay calendar in calendarDays)
+            {
+                
+            }
+    }
+
+    void SelectDay()
+    {
+
+    }*@
+
+}

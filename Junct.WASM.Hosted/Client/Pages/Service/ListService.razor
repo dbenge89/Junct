@@ -1,0 +1,46 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@if (services == null)
+{
+    NavigationManager.NavigateTo("/Service/Create");
+}
+<DataGrid TItem="Service"
+          Data="@services">
+    <DataGridCommandColumn TItem="Service"
+                           NewCommandAllowed="true"
+                           EditCommandAllowed="true"
+                           DeleteCommandAllowed="true"
+                           CancelCommandAllowed="true"
+                           SaveCommandAllowed="true" />
+    <DataGridColumn TItem="Service" Field="@nameof(Service.Name)" Caption="Name" Editable="true" Sortable="true" />
+    <DataGridColumn TItem="Service" Field="@nameof(Service.Description)" Caption="Description" Editable="true" Sortable="true" />
+    <DataGridDateColumn TItem="Service" Field="@nameof(Service.Address)" Caption="Address" Editable="true" Sortable="true" />
+</DataGrid>
+
+@code {
+    Service[] services;
+
+    protected override async Task OnInitializedAsync()
+    {
+        services = await Http.GetFromJsonAsync<Service[]>("api/ServicesController");
+
+        await LoadData();
+    }
+
+    private void CallLoadData()
+    {
+        Task.Run(async () =>
+        {
+            await LoadData();
+        });
+    }
+
+    protected async Task LoadData()
+    {
+        services = await Http.GetFromJsonAsync<Service[]>("api/ServicesController");
+        StateHasChanged();
+    }
+}

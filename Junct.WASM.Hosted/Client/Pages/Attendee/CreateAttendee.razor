@@ -1,0 +1,37 @@
+﻿@page "/Attendee/Create"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Label>First Name</Label>
+    <TextEdit Placeholder="First Name" @bind="@attendee.FirstName" />
+    <Label>Surname</Label>
+    <TextEdit Placeholder="Surname" @bind="@attendee.LastName" />
+    <Label>Phone Number</Label>
+    <TextEdit Placeholder="Phone #" @bind="@attendee.PhoneNumber" />
+    <Label>Email</Label>
+    <TextEdit Placeholder="Email" @bind="@attendee.Email" />
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Container>
+
+@code {
+    Attendee attendee = new Attendee();
+
+    protected async Task Create()
+    {
+        await Http.PostAsJsonAsync("api/AttendeesController", attendee);
+        StateHasChanged();
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Home");
+    }
+}

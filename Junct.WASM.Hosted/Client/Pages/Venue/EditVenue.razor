@@ -1,0 +1,40 @@
+﻿@page "/Venue/Update"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Label>Name</Label>
+    <TextEdit Placeholder="Name" @bind="@venue.Name" />
+    <Label>Description</Label>
+    <TextEdit Placeholder="Description" @bind="@venue.Capacity" />
+
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@UpdateVenue" Color="Color.Info">Submit</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Container>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Venue venue = new Venue();
+
+    protected async Task UpdateVenue()
+    {
+        venue = await Http.GetFromJsonAsync<Venue>("api/VenuesController/" + id);
+
+        await Http.PutAsJsonAsync("api/VenuesController/" + id, venue);
+    
+        NavigationManager.NavigateTo("/Venue");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Venue");
+    }
+}

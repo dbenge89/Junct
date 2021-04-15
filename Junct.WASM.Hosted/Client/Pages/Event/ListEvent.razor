@@ -1,0 +1,34 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@if(meets == null)
+{
+    NavigationManager.NavigateTo("/Event/Create");
+}
+<DataGrid TItem="Meet"
+          Data="@meets">
+    <DataGridCommandColumn TItem="Meet"
+                           NewCommandAllowed="true"
+                           EditCommandAllowed="true"
+                           DeleteCommandAllowed="true"
+                           CancelCommandAllowed="true"
+                           SaveCommandAllowed="true" />
+    <DataGridColumn TItem="Meet" Field="@nameof(Meet.Title)" Caption="Title" Editable="true" Sortable="true" />
+    <DataGridColumn TItem="Meet" Field="@nameof(Meet.Description)" Caption="Description" Editable="true" />
+    <DataGridDateColumn TItem="Meet" Field="@nameof(Meet.StartDate)" Caption="Start Date" Editable="true" Sortable="true" />
+    <DataGridDateColumn TItem="Meet" Field="@nameof(Meet.EndDate)" Caption="End Date" Editable="true" Sortable="true" />
+    <DataGridColumn TItem="Meet" Field="@nameof(Meet.Venue)" Caption="Venue" Editable="true" />
+    <DataGridNumericColumn TItem="Meet" Field="@nameof(Meet.Attendees.Count)" Caption="Attendees" Editable="false" Sortable="true" />
+</DataGrid>
+
+@code {
+    Meet[] meets = null;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        meets = await Http.GetFromJsonAsync<Meet[]>("api/MeetsController");
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,48 @@
+﻿@page "/Event/Update"
+
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Label>Title</Label>
+    <TextEdit Placeholder="Title" @bind="@meet.Title" />
+    <Label>Description</Label>
+    <TextEdit Placeholder="Description" @bind="@meet.Description" />
+    <Label>Start Date</Label>
+    @*<DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@occasion.StartDate" />
+    *@    <Label>End Date</Label>
+    @*  <DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@occasion.EndDate" />*@
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@UpdateOccasion" Color="Color.Info">Submit</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Container>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Meet meet = new Meet();
+
+    protected override async Task OnInitializedAsync()
+    {
+        meet = await Http.GetFromJsonAsync<Meet>("api/MeetsController/" + id);
+
+        StateHasChanged();
+    }
+
+    protected async Task UpdateOccasion()
+    {
+        await Http.PutAsJsonAsync("api/MeetsController/" + id, meet);
+        NavigationManager.NavigateTo("/Event");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Event");
+    }
+}

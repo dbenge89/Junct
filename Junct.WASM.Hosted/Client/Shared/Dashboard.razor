@@ -1,0 +1,20 @@
+﻿@page "/Home"
+@using Junct.WASM.Hosted.Shared.Models
+@using Junct.WASM.Hosted.Client.Pages.Event
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
+        <ListEvent />
+    </Column>
+    <Column ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
+        <Calendar />
+    </Column>
+</Row>
+
+
+@code {
+    private CalendarDay selectedDay = new CalendarDay
+    {
+        Date = DateTime.Now
+    };
+}

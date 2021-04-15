@@ -1,0 +1,43 @@
+﻿@page "/Event/Delete"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Card>
+    <CardTitle>Are you sure you want to delete this event?</CardTitle>
+    <CardSubtitle>@meet.Title</CardSubtitle>
+    <CardText>@meet.Description</CardText>
+    <CardText>@meet.StartDate</CardText>
+    <CardText>@meet.EndDate</CardText>
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Delete" Color="Color.Danger">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+    Meet meet = new Meet();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        meet = await Http.GetFromJsonAsync<Meet>("api/MeetsController/" + id);
+
+        StateHasChanged();
+    }
+
+    protected async Task Delete()
+    {
+        await Http.DeleteAsync("api/OccassionsController/" + id);
+        NavigationManager.NavigateTo("/Event");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Event");
+    }
+}

@@ -1,0 +1,38 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+
+<Card>
+    <CardTitle>@address.StreetLine1</CardTitle>
+    <CardText>@address.StreetLine2</CardText>
+    <CardText>@address.City</CardText>
+    <CardText>@address.State</CardText>
+    <CardText>@address.Country</CardText>
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Link" To="/Address/Update" Color="Color.Info">Edit</Button>
+            <Button Type="ButtonType.Link" To="/Address/Delete" Color="Color.Info">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Back</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Address address = new Address();
+
+    protected override async Task OnInitializedAsync()
+    {
+        address = await Http.GetFromJsonAsync<Address>("api/AddressesController/" + id);
+
+        StateHasChanged();
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Home");
+    }
+}

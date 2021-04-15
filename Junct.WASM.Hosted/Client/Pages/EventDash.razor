@@ -1,0 +1,25 @@
+﻿@page "/Event"
+@using Junct.WASM.Hosted.Client.Pages.Event
+
+<Layout>
+    <LayoutHeader>
+        <Jumbotron Background="Background.Dark" Class="text-light" Style="justify-content: center; align-content: center; text-align: center;">
+            <JumbotronTitle>Events</JumbotronTitle>
+            <JumbotronSubtitle>Welcome to your Events dashboard!</JumbotronSubtitle>
+            <JumbotronSubtitle>
+                <Buttons>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Event/Create">New Event</Button>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Event/Update">Update Event</Button>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Event/Delete">Delete Event</Button>
+                </Buttons>
+            </JumbotronSubtitle>
+        </Jumbotron>
+    </LayoutHeader>
+    <LayoutContent>
+        <ListEvent />
+    </LayoutContent>
+</Layout>
+
+@code{
+
+}

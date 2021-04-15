@@ -1,0 +1,37 @@
+﻿@page "/Event/Create"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Label>Name</Label>
+    <TextEdit Placeholder="Name" @bind="@meet.Title" />
+    <Label>Description</Label>
+    <TextEdit Placeholder="Description" @bind="@meet.Description" />
+    <Label>Start Date</Label>
+    @*<DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@meet.StartDate" />
+    *@    <Label>End Date</Label>
+    @*  <DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@meet.EndDate" />*@
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Container>
+
+@code {
+    Meet meet = new Meet();
+
+    protected async Task Create()
+    {
+        await Http.PostAsJsonAsync("api/meetsController", meet);
+        NavigationManager.NavigateTo("/Event");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Event");
+    }
+}

@@ -1,0 +1,43 @@
+﻿@page "/Address/Delete"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Card>
+    <CardTitle>Are you sure you want to delete this address?</CardTitle>
+    <CardSubtitle>@address.StreetLine1</CardSubtitle>
+    <CardText>@address.StreetLine2</CardText>
+    <CardText>@address.City</CardText>
+    <CardText>@address.State</CardText>
+    <CardText>@address.Country</CardText>
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Delete" Color="Color.Danger">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Address address = new Address();
+
+    protected override async Task OnInitializedAsync()
+    {
+        address = await Http.GetFromJsonAsync<Address>("api/AddressesController/" + id);
+    }
+
+    protected async Task Delete()
+    {
+        await Http.DeleteAsync("api/AddressesController/" + id);
+        NavigationManager.NavigateTo("/Home");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Home");
+    }
+}

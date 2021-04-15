@@ -1,0 +1,25 @@
+﻿@page "/Venue"
+@using Junct.WASM.Hosted.Client.Pages.Venue
+
+<Layout>
+    <LayoutHeader>
+        <Jumbotron Background="Background.Dark" Class="text-light" Style="justify-content: center; align-content: center; text-align: center;">
+            <JumbotronTitle>Venues</JumbotronTitle>
+            <JumbotronSubtitle>Welcome to your Venue dashboard!</JumbotronSubtitle>
+            <JumbotronSubtitle>
+                <Buttons>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Venue/Create">New Venue</Button>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Venue/Update">Update Venue</Button>
+                    <Button Color="Color.Secondary" Type="ButtonType.Link" To="/Venue/Delete">Delete Venue</Button>
+                </Buttons>
+            </JumbotronSubtitle>
+        </Jumbotron>
+    </LayoutHeader>
+    <LayoutContent>
+        <ListVenue />
+    </LayoutContent>
+</Layout>
+
+@code {
+
+}

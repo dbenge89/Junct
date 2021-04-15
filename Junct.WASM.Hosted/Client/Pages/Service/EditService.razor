@@ -1,0 +1,41 @@
+﻿@page "/Service/Update"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Label>Name</Label>
+    <TextEdit Placeholder="Name" @bind="@service.Name" />
+    <Label>Description</Label>
+    <TextEdit Placeholder="Description" @bind="@service.Description" />
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@UpdateService" Color="Color.Info">Submit</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Container>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Service service = new Service();
+
+    protected override async Task OnInitializedAsync()
+    {
+        service = await Http.GetFromJsonAsync<Service>("api/ServicesController/" + id);
+    }
+
+    protected async Task UpdateService()
+    {
+        await Http.PutAsJsonAsync("api/ServicesController/" + id, service);
+        NavigationManager.NavigateTo("/Service");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Service");
+    }
+}

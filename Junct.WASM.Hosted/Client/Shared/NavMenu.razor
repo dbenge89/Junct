@@ -1,0 +1,40 @@
+﻿<Bar Mode="BarMode.Horizontal"
+     Breakpoint="Breakpoint.Desktop"
+     Background="Background.Secondary"
+     ThemeContrast="ThemeContrast.Light">
+    <BarBrand>
+        <Image Source="\assets\logo_transparent.png" Class="img-fluid" Style="max-height: 80px;" />
+    </BarBrand>
+    <BarToggler />
+    <BarMenu>
+        <BarStart>
+            <BarItem>
+                <AuthorizeView>
+                    <Authorized>
+                        <Text Color="TextColor.Light">Welcome, @context.User.Identity.Name!</Text>
+                    </Authorized>
+                    <NotAuthorized>
+                        <Text>Please register to get started! <br /> Already have an account? Please login!</Text>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </BarItem>
+        </BarStart>
+        <BarEnd>
+            <BarItem>
+                <AuthorizeView>
+                    <Authorized>
+                        <Text Color="TextColor.Light">@DateTime.Now.Month @DateTime.Now.Day, @DateTime.Now.Year</Text>
+                    </Authorized>
+                    <NotAuthorized>
+                        <Button Color="Color.Secondary" Type="ButtonType.Link" To="Login">Sign Up</Button>
+                        <Button Color="Color.Secondary" Type="ButtonType.Link" To="Login">Login</Button>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </BarItem>
+        </BarEnd>
+    </BarMenu>
+</Bar>
+
+@code {
+
+}

@@ -1,0 +1,35 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+
+<Card>
+    <CardTitle>@venue.Name</CardTitle>
+    <CardText>@venue.Capacity</CardText>
+    <CardText>@venue.Address</CardText>
+
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Link" To="/Venue/Update" Color="Color.Info">Edit</Button>
+            <Button Type="ButtonType.Link" To="/Venue/Delete" Color="Color.Info">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Back</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Venue venue = new Venue();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        venue = await Http.GetFromJsonAsync<Venue>("api/VenuesController/" + id);
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Venue");
+    }
+}

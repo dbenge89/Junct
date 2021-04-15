@@ -1,0 +1,33 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@if (attendees == null)
+{
+    NavigationManager.NavigateTo("/Attendee/Create");
+}
+<DataGrid TItem="Attendee"
+          Data="@attendees">
+    <DataGridCommandColumn TItem="Attendee"
+                           NewCommandAllowed="true"
+                           EditCommandAllowed="true"
+                           DeleteCommandAllowed="true"
+                           CancelCommandAllowed="true"
+                           SaveCommandAllowed="true" />
+    <DataGridColumn TItem="Attendee" Field="@nameof(Attendee.FirstName)" Caption="First Name" Editable="true" Sortable="true" />
+    <DataGridColumn TItem="Attendee" Field="@nameof(Attendee.LastName)" Caption="SurName" Editable="true" />
+    <DataGridDateColumn TItem="Attendee" Field="@nameof(Attendee.PhoneNumber)" Caption="Phone #" Editable="true" Sortable="true" />
+    <DataGridDateColumn TItem="Attendee" Field="@nameof(Attendee.Email)" Caption="Email" Editable="true" Sortable="true" />
+    <DataGridColumn TItem="Attendee" Field="@nameof(Attendee.Address)" Caption="Adress" Editable="true" />
+</DataGrid>
+
+@code {
+    Attendee[] attendees = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        attendees = await Http.GetFromJsonAsync<Attendee[]>("api/AttendeesController");
+        StateHasChanged();
+    }
+}

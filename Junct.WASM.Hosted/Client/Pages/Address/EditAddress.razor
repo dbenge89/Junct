@@ -1,0 +1,63 @@
+﻿@page "/Address/Update"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Fields>
+    <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
+        <FieldLabel>Street Address Line 1</FieldLabel>
+        <TextEdit Placeholder="Street Address" @bind="@address.StreetLine1" />
+    </Field>
+    <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
+        <FieldLabel>Street Address Line 2</FieldLabel>
+        <TextEdit Placeholder="Street Address" @bind="@address.StreetLine2" />
+    </Field>
+</Fields>
+<Fields>
+    <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is6.OnTablet">
+        <FieldLabel>City</FieldLabel>
+        <TextEdit Placeholder="Name" @bind="@address.City" />
+    </Field>
+    <Field ColumnSize="ColumnSize.Is4.OnDesktop.Is6.OnTablet">
+        <FieldLabel>State</FieldLabel>
+        <TextEdit Placeholder="Name" @bind="@address.State" />
+    </Field>
+    <Field ColumnSize="ColumnSize.Is2.OnDesktop.Is6.OnTablet">
+        <FieldLabel>State</FieldLabel>
+        <TextEdit Placeholder="Name" @bind="@address.Country" />
+    </Field>
+</Fields>
+<Fields>
+    <Field ColumnSize="ColumnSize.Is12">
+        <Buttons Role="ButtonsRole.Toolbar">
+            <Buttons>
+                <Button Type="ButtonType.Button" Clicked="@UpdateAddress" Color="Color.Info">Submit</Button>
+                <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+            </Buttons>
+        </Buttons>
+    </Field>
+</Fields>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Address address = new Address();
+
+    protected override async Task OnInitializedAsync()
+    {
+        address = await Http.GetFromJsonAsync<Address>("api/AddressesController/" + id);
+    }
+
+    protected async Task UpdateAddress()
+    {
+        await Http.PutAsJsonAsync("api/AddressesController/" + id, address);
+        NavigationManager.NavigateTo("/Home");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Home");
+    }
+}

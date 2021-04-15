@@ -1,0 +1,31 @@
+﻿@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@if (venues == null)
+{
+    NavigationManager.NavigateTo("/Venue/Create");
+}
+<DataGrid TItem="Venue"
+          Data="@venues">
+    <DataGridCommandColumn TItem="Venue"
+                           NewCommandAllowed="true"
+                           EditCommandAllowed="true"
+                           DeleteCommandAllowed="true"
+                           CancelCommandAllowed="true"
+                           SaveCommandAllowed="true" />
+    <DataGridColumn TItem="Venue" Field="@nameof(Venue.Name)" Caption="Name" Editable="true" Sortable="true" />
+    <DataGridColumn TItem="Venue" Field="@nameof(Venue.Capacity)" Caption="Description" Editable="true" />
+    <DataGridDateColumn TItem="Venue" Field="@nameof(Venue.Address)" Caption="Start Date" Editable="true" Sortable="true" />
+</DataGrid>
+
+@code {
+    Venue[] venues;
+
+    protected override async Task OnInitializedAsync()
+    {
+        venues = await Http.GetFromJsonAsync<Venue[]>("api/VenuesController");
+        StateHasChanged();
+    }
+}

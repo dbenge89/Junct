@@ -1,0 +1,45 @@
+﻿@page "/Attendee/Update"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Container Fluid="true">
+    <Label>First Name</Label>
+    <TextEdit Placeholder="First Name" @bind="@attendee.FirstName" />
+    <Label>Surname</Label>
+    <TextEdit Placeholder="Surname" @bind="@attendee.LastName" />
+    <Label>Phone Number</Label>
+    <TextEdit Placeholder="Phone #" @bind="@attendee.PhoneNumber" />
+    <Label>Email</Label>
+    <TextEdit Placeholder="Email" @bind="@attendee.Email" />
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Updateattendee" Color="Color.Info">Submit</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Container>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Attendee attendee = new Attendee();
+
+    protected override async Task OnInitializedAsync()
+    {
+        attendee = await Http.GetFromJsonAsync<Attendee>("api/AttendeesController/" + id);
+    }
+
+    protected async Task Updateattendee()
+    {
+        await Http.PutAsJsonAsync("api/AttendeesController/" + id, attendee);
+        NavigationManager.NavigateTo("/Home");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Home");
+    }
+}

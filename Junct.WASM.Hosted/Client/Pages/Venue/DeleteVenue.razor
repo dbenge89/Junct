@@ -1,0 +1,39 @@
+﻿@page "/Venue/Delete"
+@using Junct.WASM.Hosted.Shared.Models
+
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<Card>
+    <CardTitle>Are you sure you want to delete this venue?</CardTitle>
+    <CardSubtitle>@venue.Name</CardSubtitle>
+    <CardText>@venue.Capacity</CardText>
+    <CardText>@venue.Address</CardText>
+    <Buttons Role="ButtonsRole.Toolbar">
+        <Buttons>
+            <Button Type="ButtonType.Button" Clicked="@Delete" Color="Color.Danger">Delete</Button>
+            <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
+        </Buttons>
+    </Buttons>
+</Card>
+
+@code {
+    [Parameter]
+    public string id { get; set; }
+
+    Venue venue = new Venue();
+
+    protected async Task Delete()
+    {
+        venue = await Http.GetFromJsonAsync<Venue>("api/VenuesController/" + id);
+
+        await Http.DeleteAsync("api/VenuesController/" + id);
+
+        NavigationManager.NavigateTo("/Venue");
+    }
+
+    void Cancel()
+    {
+        NavigationManager.NavigateTo("/Venue");
+    }
+}
