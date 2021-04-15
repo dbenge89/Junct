@@ -6,35 +6,30 @@
 <Fields>
     <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
         <FieldLabel>Street Address Line 1</FieldLabel>
-        <TextEdit Placeholder="Street Address" @bind="@address.StreetLine1" />
+        <TextEdit Placeholder="Street Address Line 1" @bind="@address.StreetLine1" />
     </Field>
     <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is12.OnTablet">
         <FieldLabel>Street Address Line 2</FieldLabel>
-        <TextEdit Placeholder="Street Address" @bind="@address.StreetLine2" />
+        <TextEdit Placeholder="Street Address Line 2" @bind="@address.StreetLine2" />
     </Field>
 </Fields>
 <Fields>
     <Field ColumnSize="ColumnSize.Is6.OnDesktop.Is6.OnTablet">
         <FieldLabel>City</FieldLabel>
-        <TextEdit Placeholder="Name" @bind="@address.City" />
+        <TextEdit Placeholder="City" @bind="@address.City" />
     </Field>
     <Field ColumnSize="ColumnSize.Is4.OnDesktop.Is6.OnTablet">
         <FieldLabel>State</FieldLabel>
-        <TextEdit Placeholder="Name" @bind="@address.State" />
+        <TextEdit Placeholder="State" @bind="@address.State" />
     </Field>
     <Field ColumnSize="ColumnSize.Is2.OnDesktop.Is6.OnTablet">
-        <FieldLabel>State</FieldLabel>
-        <TextEdit Placeholder="Name" @bind="@address.Country" />
+        <FieldLabel>Country</FieldLabel>
+        <TextEdit Placeholder="Country" @bind="@address.Country" />
     </Field>
 </Fields>
 <Fields>
     <Field ColumnSize="ColumnSize.Is12">
-        <Buttons Role="ButtonsRole.Toolbar">
-            <Buttons>
-                <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>
-                <Button Type="ButtonType.Button" Clicked="@Cancel" Color="Color.Secondary">Cancel</Button>
-            </Buttons>
-        </Buttons>
+        <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Secondary">Add Address</Button>
     </Field>
 </Fields>
 
@@ -44,11 +39,7 @@
     protected async Task Create()
     {
         await Http.PostAsJsonAsync("api/AddressesController", address);
-        NavigationManager.NavigateTo("/Home");
+        StateHasChanged();
     }
 
-    void Cancel()
-    {
-        NavigationManager.NavigateTo("/Home");
-    }
 }

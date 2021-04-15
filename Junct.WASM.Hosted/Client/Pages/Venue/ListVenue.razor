@@ -13,8 +13,9 @@
                                CancelCommandAllowed="true"
                                SaveCommandAllowed="true" />
         <DataGridColumn TItem="Venue" Field="@nameof(Venue.Name)" Caption="Name" Editable="true" Sortable="true" />
-        <DataGridColumn TItem="Venue" Field="@nameof(Venue.Capacity)" Caption="Description" Editable="true" />
-        <DataGridDateColumn TItem="Venue" Field="@nameof(Venue.Address)" Caption="Start Date" Editable="true" Sortable="true" />
+        <DataGridNumericColumn TItem="Venue" Field="@nameof(Venue.Capacity)" Caption="Capacity" Editable="true" />
+        <DataGridColumn TItem="Venue" Field="@nameof(Venue.Address.City)" Caption="Address" Editable="true" Sortable="true" />
+        <DataGridColumn TItem="Venue" Field="@nameof(Venue.Address.State)" Caption="Address" Editable="true" Sortable="true" />
     </ChildContent>
     <EmptyTemplate>
         <div class="box">
