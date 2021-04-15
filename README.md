@@ -13,8 +13,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="">
+    <img src="" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">JUNCT</h3>
@@ -24,7 +24,7 @@
     <br />
     <br />
     <br />
-    <a href="">Go to live website (Working on Azure Implementation)</a>
+    <a href="https://junct.azurewebsites.net">Go to live website (Still working on Azure Implementation)</a>
     ·
     <a href="https://github.com/dbenge89/Junct/issues">Report Bug</a>
     ·
