@@ -1,5 +1,6 @@
 ﻿@page "/Event/Create"
 @using Junct.WASM.Hosted.Shared.Models
+@using Junct.WASM.Hosted.Client.Pages.Attendee
 
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
@@ -9,10 +10,8 @@
     <TextEdit Placeholder="Name" @bind="@meet.Title" />
     <Label>Description</Label>
     <TextEdit Placeholder="Description" @bind="@meet.Description" />
-    <Label>Start Date</Label>
-    @*<DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@meet.StartDate" />
-    *@    <Label>End Date</Label>
-    @*  <DateEdit TValue="DateTime?" InputMode="DateInputMode.DateTime" @bind="@meet.EndDate" />*@
+    <Label>Add Attendees</Label>
+    <CreateAttendee />
     <Buttons Role="ButtonsRole.Toolbar">
         <Buttons>
             <Button Type="ButtonType.Button" Clicked="@Create" Color="Color.Info">Submit</Button>

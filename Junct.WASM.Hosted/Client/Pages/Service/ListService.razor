@@ -3,44 +3,43 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
-@if (services == null)
-{
-    NavigationManager.NavigateTo("/Service/Create");
-}
 <DataGrid TItem="Service"
           Data="@services">
-    <DataGridCommandColumn TItem="Service"
-                           NewCommandAllowed="true"
-                           EditCommandAllowed="true"
-                           DeleteCommandAllowed="true"
-                           CancelCommandAllowed="true"
-                           SaveCommandAllowed="true" />
-    <DataGridColumn TItem="Service" Field="@nameof(Service.Name)" Caption="Name" Editable="true" Sortable="true" />
-    <DataGridColumn TItem="Service" Field="@nameof(Service.Description)" Caption="Description" Editable="true" Sortable="true" />
-    <DataGridDateColumn TItem="Service" Field="@nameof(Service.Address)" Caption="Address" Editable="true" Sortable="true" />
+    <ChildContent>
+        <DataGridCommandColumn TItem="Service"
+                               NewCommandAllowed="true"
+                               EditCommandAllowed="true"
+                               DeleteCommandAllowed="true"
+                               CancelCommandAllowed="true"
+                               SaveCommandAllowed="true" />
+        <DataGridColumn TItem="Service" Field="@nameof(Service.Name)" Caption="Name" Editable="true" Sortable="true" />
+        <DataGridColumn TItem="Service" Field="@nameof(Service.Description)" Caption="Description" Editable="true" Sortable="true" />
+        <DataGridDateColumn TItem="Service" Field="@nameof(Service.Address)" Caption="Address" Editable="true" Sortable="true" />
+    </ChildContent>
+    <EmptyTemplate>
+        <div class="box">
+            No Services Found!
+        </div>
+    </EmptyTemplate>
+    <LoadingTemplate>
+        <div class="box">
+            <progress class="progress is-small is-primary" max="100" />
+        </div>
+    </LoadingTemplate>
 </DataGrid>
 
 @code {
     Service[] services;
+    int totalServices;
 
-    protected override async Task OnInitializedAsync()
+    async Task LoadEventsFromService(DataGridReadDataEventArgs<Service> s)
     {
-        services = await Http.GetFromJsonAsync<Service[]>("api/ServicesController");
+        var response = await Http.GetFromJsonAsync<Service[]>("api/ServicesController");
 
-        await LoadData();
-    }
+        services = response.ToArray();
+        totalServices = response.Count();
 
-    private void CallLoadData()
-    {
-        Task.Run(async () =>
-        {
-            await LoadData();
-        });
-    }
 
-    protected async Task LoadData()
-    {
-        services = await Http.GetFromJsonAsync<Service[]>("api/ServicesController");
         StateHasChanged();
     }
 }

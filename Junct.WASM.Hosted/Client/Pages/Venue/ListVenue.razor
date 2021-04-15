@@ -3,29 +3,42 @@
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
-@if (venues == null)
-{
-    NavigationManager.NavigateTo("/Venue/Create");
-}
 <DataGrid TItem="Venue"
           Data="@venues">
-    <DataGridCommandColumn TItem="Venue"
-                           NewCommandAllowed="true"
-                           EditCommandAllowed="true"
-                           DeleteCommandAllowed="true"
-                           CancelCommandAllowed="true"
-                           SaveCommandAllowed="true" />
-    <DataGridColumn TItem="Venue" Field="@nameof(Venue.Name)" Caption="Name" Editable="true" Sortable="true" />
-    <DataGridColumn TItem="Venue" Field="@nameof(Venue.Capacity)" Caption="Description" Editable="true" />
-    <DataGridDateColumn TItem="Venue" Field="@nameof(Venue.Address)" Caption="Start Date" Editable="true" Sortable="true" />
+    <ChildContent>
+        <DataGridCommandColumn TItem="Venue"
+                               NewCommandAllowed="true"
+                               EditCommandAllowed="true"
+                               DeleteCommandAllowed="true"
+                               CancelCommandAllowed="true"
+                               SaveCommandAllowed="true" />
+        <DataGridColumn TItem="Venue" Field="@nameof(Venue.Name)" Caption="Name" Editable="true" Sortable="true" />
+        <DataGridColumn TItem="Venue" Field="@nameof(Venue.Capacity)" Caption="Description" Editable="true" />
+        <DataGridDateColumn TItem="Venue" Field="@nameof(Venue.Address)" Caption="Start Date" Editable="true" Sortable="true" />
+    </ChildContent>
+    <EmptyTemplate>
+        <div class="box">
+            No Venues Found!
+        </div>
+    </EmptyTemplate>
+    <LoadingTemplate>
+        <div class="box">
+            <progress class="progress is-small is-primary" max="100" />
+        </div>
+    </LoadingTemplate>
 </DataGrid>
 
 @code {
     Venue[] venues;
+    int totalVenues;
 
-    protected override async Task OnInitializedAsync()
+    async Task LoadEventsFromService(DataGridReadDataEventArgs<Venue> v)
     {
-        venues = await Http.GetFromJsonAsync<Venue[]>("api/VenuesController");
+        var response = await Http.GetFromJsonAsync<Venue[]>("api/VenuesController");
+
+        venues = response.ToArray();
+        totalVenues = response.Count();
+
         StateHasChanged();
     }
 }
